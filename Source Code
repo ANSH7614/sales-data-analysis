@@ -1,0 +1,53 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(42)
+
+# Simulate sales data (in thousands) for 12 months and 4 regions
+months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+regions = ['North', 'South', 'East', 'West']
+
+sales_data = {
+    region: np.random.randint(80, 200, size=12)
+    for region in regions
+}
+
+plt.figure(figsize=(10, 6))
+for region in regions:
+    plt.plot(months, sales_data[region], label=region)
+
+plt.title('Monthly Sales Trend by Region')
+plt.xlabel('Month')
+plt.ylabel('Sales (in thousands)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+total_sales = [np.sum(sales_data[region]) for region in regions]
+
+plt.figure(figsize=(8, 5))
+plt.bar(regions, total_sales, color=['blue', 'green', 'orange', 'red'])
+plt.title('Total Sales per Region (Yearly)')
+plt.ylabel('Total Sales (in thousands)')
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(6, 6))
+plt.pie(total_sales, labels=regions, autopct='%1.1f%%', startangle=90, colors=['skyblue', 'lightgreen', 'gold', 'salmon'])
+plt.title('Sales Contribution by Region')
+plt.axis('equal')
+plt.tight_layout()
+plt.show()
+
+all_sales = np.concatenate([sales_data[region] for region in regions])
+
+plt.figure(figsize=(8, 5))
+plt.hist(all_sales, bins=10, color='purple', edgecolor='black')
+plt.title('Distribution of Monthly Sales Values')
+plt.xlabel('Sales Value (in thousands)')
+plt.ylabel('Frequency')
+plt.tight_layout()
+plt.show()
